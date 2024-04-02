@@ -107,22 +107,26 @@ Questions on Table Storage
 
 \section{True/False Questions}
 
-For each question below, circle either True or False.
+This document contains sample questions for your quiz on MVCC.
 On your final exam,
 each correct answer will result in +1 point,
 each incorrect answer will result in -1 point,
 and each blank answer in 0 points.
 
-\vspace{0.15in}
-\noindent
-For this homework assignment, you can uncomment the following line in the tex file to view the answers:
-\begin{verbatim}
-\printanswers
-\end{verbatim}
-and so these questions do not need to be submitted.
-You should still try to complete them, however, to check your understanding.
-Approximately half of these questions will be answered directly in class and 
-and the remaining half you'll have to refer to the postgres documentation / supplementary material for the answers.
+One of the purposes of the quiz is to test your ability to read/understand documentation,
+and you will be allowed to use a computer for the quiz with no limitations.
+
+%For each question below, circle either True or False.
+%\vspace{0.15in}
+%\noindent
+%For this homework assignment, you can uncomment the following line in the tex file to view the answers:
+%\begin{verbatim}
+%\printanswers
+%\end{verbatim}
+%and so these questions do not need to be submitted.
+%You should still try to complete them, however, to check your understanding.
+%Approximately half of these questions will be answered directly in class and 
+%and the remaining half you'll have to refer to the postgres documentation / supplementary material for the answers.
 
 \begin{questions}
 
@@ -144,7 +148,7 @@ and the remaining half you'll have to refer to the postgres documentation / supp
 
 \question\TFQuestion{F}{Every relation in a postgres database is physically stored on the harddrive as exactly one file.}
 
-\question\TFQuestion{T}{A table that takes up 160KB on disk has 20 pages.}
+\question\TFQuestion{T}{With default settings, a table that takes up 160KB on disk has exactly 20 pages.}
 
 \question\TFQuestion{F}{TID stands for \emph{Transaction ID}, and every transaction is assigned a unique TID.}
 
@@ -158,21 +162,40 @@ and the remaining half you'll have to refer to the postgres documentation / supp
 
 \question\TFQuestion{F}{In order to remove dead tuples from a table, you must manually run the VACUUM command on that table.}
 
-\question\TFQuestion{F}{You should disable autovacuum to improve the performance of your database.}
+\question\TFQuestion{F}{The postgres documentation recommends disabling autovacuum to improve the performance of very large databases.}
+
+\question\TFQuestion{F}{The autovacuum will perform a VACUUM FULL operation when needed to reduce the amount of disk space used by a table.}
+
+\question\TFQuestion{F}{The \lstinline{pg_freespacemap} extension is required to run a VACUUM FULL instead of just a VACUUM.}
+
+\question\TFQuestion{T}{Postgres can perform a VACUUM FULL on two different tables at the same time concurrently.}
+
+\question\TFQuestion{T}{Postgres can perform a VACUUM on two different tables at the same time concurrently.}
 
 \question\TFQuestion{F}{When you use the INSERT command to insert multiple rows into a table at once, these rows are guaranteed to be inserted into the same page.}
+
+\question\TFQuestion{F}{When you use the UPDATE command to modify a row, \lstinline{t_xmax} field will not be modified.}
+
+\question\TFQuestion{F}{Running the DELETE command can modify the \lstinline{t_xmin} field of a row.}
+
+\question\TFQuestion{T}{A single DELETE command can delete multiple rows from a table.}
+
+\question\TFQuestion{F}{A row with \lstinline{t_xmin} set to 99 will be visible to a transaction with \lstinline{xid} of 90.}
+
+
+\question\TFQuestion{F}{\lstinline{t_cid} and \lstinline{t_ctid} are synonyms.}
 
 \question\TFQuestion{F}{A postgres database cluster can span dozens of computers.}
 
 \question\TFQuestion{F}{Postgres is using too much disk space, and you need to free up some space.  You identify that there is a large 10TB table that contains about 90\% dead tuples.  Running the VACUUM command on this table will likely free up several terabytes of disk space.}
 
-\question\TFQuestion{T}{Postgres uses a table's FSM to quickly determine which page it should insert a tuple into.}
+\question\TFQuestion{T}{Postgres uses a table's FSM to quickly determine which page it can insert a tuple into.}
 
 \question\TFQuestion{T}{Postgres uses a table's VM to speed up VACUUMing.}
 
-\question\TFQuestion{F}{If you are inserting large text strings into postgres, it makes sense to compress them first in order to save space.}
+\question\TFQuestion{F}{If you are inserting large text strings into postgres, the postgres documentation recommends compressing them first in order to save space.}
 
-\question\TFQuestion{F}{The DELETE command deletes tuples directly from the page files.}
+\question\TFQuestion{F}{The DELETE command deletes tuples directly from the page files on the harddrive.}
 
 \question\TFQuestion{F}{NoSQL databases like MongoDB and CassandraDB use ACID compliant transactions.}
 
@@ -190,13 +213,15 @@ and the remaining half you'll have to refer to the postgres documentation / supp
 
 \question\TFQuestion{T}{The default \lstinline{fillfactor} for tables is 100.}
 
-\question\TFQuestion{T}{Tables that have INSERTs but no UPDATEs should use a \lstinline{fillfactor} of 100, but for tables with many updates, it may make sense to decrease the \lstinline{fillfactor}.}
+\question\TFQuestion{F}{Increasing a table's \lstinline{fillfactor} will generally cause the UPDATE operation to go faster, but the SELECT operation to go slower.}
 
-\question\TFQuestion{T}{Heap tuples are stacked in order from the bottom of the page.}
+\question\TFQuestion{T}{Tables that have INSERTs but no UPDATEs should use a \lstinline{fillfactor} of 100, but for tables with many updates, it it is recommended to use a lower \lstinline{fillfactor}.}
 
 \question\TFQuestion{T}{There is no difference between a line pointer and an item pointer.}
 
 \question\TFQuestion{T}{A page always has 24 bytes of header data.}
+
+\question\TFQuestion{F}{A page can have 32 bytes of header data if it contains a column with more than 8 non-NULL values.}
 
 \question\TFQuestion{T}{For any given page, the \lstinline{pd_lower} value can never be greater than the \lstinline{pg_upper} value.}
 

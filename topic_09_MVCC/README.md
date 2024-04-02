@@ -1,19 +1,29 @@
 # MVCC Implementation
 
+MVCC = MultiVersion Concurrency Control
+
+1. It is the technique postgres uses internally for implementing Atomic and Isolated transactions.
+
+1. We will need to understand these details in order to understand how to make SELECT queries fast.
+
+1. Unfortunately, they're complicated.
+
 <img src=update.jpeg width=400px >
 
 ## Lecture Notes
 
 **Reading:**
 
-1. You are responsible for everything in chapters 1,2,5,6,7 in the book <http://www.interdb.jp/pg>
+1. You are responsible for everything in chapters 1,2,5.1-5.3,6.1,6.2,6.5,6.6 in the book <http://www.interdb.jp/pg>.
+
+    Sections 5.6, 5.7 are recommended to skim.
 
     This covers the implementation details of MVCC.
     These details will help you understand:
     
     1. why locks work the way they do
     1. the "table overhead" (we previously talked about "row overhead" only)
-    1. background for how to make SQL `SELECT` queries fast
+    1. background for understanding how to make SQL `SELECT` queries fast
         1. next section of class covers the algorithms used for these queries,
             and you'll need to know the MVCC details
 
