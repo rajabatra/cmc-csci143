@@ -6,9 +6,11 @@ MVCC = MultiVersion Concurrency Control
 
 1. We will need to understand these details in order to understand how to make SELECT queries fast.
 
-1. Unfortunately, they're complicated.
+1. Unfortunately, there's a lot of material here.
 
-<img src=update.jpeg width=400px >
+    <img src=update.jpeg width=400px >
+
+1. Fortunately, it's all much more straightforward than the transactions/locks material.
 
 ## Lecture Notes
 
@@ -16,16 +18,16 @@ MVCC = MultiVersion Concurrency Control
 
 1. You are responsible for everything in chapters 1,2,5.1-5.3,6.1,6.2,6.5,6.6 in the book <http://www.interdb.jp/pg>.
 
-    Sections 5.6, 5.7 are recommended to skim.
+1. The `questions.pdf` file contains quiz practice problems related to the reading.
 
+    <!--
     This covers the implementation details of MVCC.
     These details will help you understand:
     
     1. why locks work the way they do
     1. the "table overhead" (we previously talked about "row overhead" only)
     1. background for understanding how to make SQL `SELECT` queries fast
-        1. next section of class covers the algorithms used for these queries,
-            and you'll need to know the MVCC details
+    -->
 
 **Important Highlights From the Reading:**
 
