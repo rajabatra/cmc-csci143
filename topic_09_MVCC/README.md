@@ -19,9 +19,10 @@ MVCC = MultiVersion Concurrency Control
 1. You are responsible for everything in chapters 1,2,5.1-5.3,5.10,6.1,6.2,6.5,6.6 in the book <http://www.interdb.jp/pg>.
 
     > **NOTE:**
-    > In the past, I've also required Sections 5.4-5.7.
-    > I strongly recommend that you read these sections,
-    > but I will not test you on them because the knowledge is *illegible* (i.e. hard to test).
+    > In the past, I've also required Sections 5.4-5.7 and 6.3,6.4.
+    > For students who want to work with databases professionally in the future,
+    > I strongly recommend you read these sections.
+    > I will not test you on them, however, because the knowledge is *illegible* (i.e. hard to test).
 
 1. The `questions.pdf` file contains quiz practice problems related to the reading.
 
