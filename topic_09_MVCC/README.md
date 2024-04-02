@@ -16,7 +16,7 @@ MVCC = MultiVersion Concurrency Control
 
 **Reading:**
 
-1. You are responsible for everything in chapters 1,2,5.1-5.3,6.1,6.2,6.5,6.6 in the book <http://www.interdb.jp/pg>.
+1. You are responsible for everything in chapters 1,2,5.1-5.3,5.10,6.1,6.2,6.5,6.6 in the book <http://www.interdb.jp/pg>.
 
     > **NOTE:**
     > In the past, I've also required Sections 5.4-5.7.
