@@ -1,5 +1,15 @@
 # B-Trees and Indexes
 
+**Announcements:**
+
+The `twitter_postgres_parallel` homework will be due ~~Tuesday 9 April~~ Thursday 11 April.
+
+## Lecture Notes
+
+<img src=indexes-seal.jpeg width=400px />
+
+**Overview:**
+
 Indexes are data structures used for making SQL queries fast.
 
 1. Advantage:
@@ -18,8 +28,6 @@ Indexes are data structures used for making SQL queries fast.
 <br/><br/>
 
 <img width=400px src=Strips-Fier-600-finalenglish.gif />
-
-## Lecture Notes
 
 **Quiz/Final Exam Details:**
 
@@ -455,7 +463,11 @@ You must know how the following concepts relate to all of the query plan strateg
 
 ### Summary
 
-Creating indexes is complicated, and requires careful thought.
+Creating simple indexes for simple queries is relatively straightforward once you know what's going on.
+
+<img src=fry.jpg width=400px >
+
+Creating indexes for complex queries requires careful thought to avoid INSERT slowdown.
 
 <img src=index2.jpg width=400px >
 
