@@ -1,6 +1,6 @@
 # B-Trees and Indexes
 
-Indexes are data structures used for making SQL queries (typically `SELECT`) fast.
+Indexes are data structures used for making SQL queries fast.
 
 1. Advantage:
     1. reduce the runtime of finding a row (for `SELECT`/`UPDATE`/`DELETE` statements) from $O(n)$ down to $\Theta(\log n)$
@@ -13,18 +13,30 @@ Indexes are data structures used for making SQL queries (typically `SELECT`) fas
     1. Careful use of indexes will solve 99% of your SQL performance problems
     1. Most industry devs never properly learn SQL -> don't understand indexes -> can't make their code fast
 
-<img src=Strip-magicien-du-code-650-finalenglish.jpg />
+        <img src=Strip-magicien-du-code-650-finalenglish.jpg />
 
-<br/><br/>
+        <br/><br/>
 
-<img src=Strips-Fier-600-finalenglish.gif />
+        <img src=Strips-Fier-600-finalenglish.gif />
 
-Main reference:
-1. You are responsible for everything in the blog posts at <https://habr.com/en/company/postgrespro/blog/441962/>
+## Lecture Notes
+
+**Quiz/Final Exam Details:**
+
+You are responsible for the following references:
+
+1. The PostgresPro Index tutorial:
+    1. Part 1: Indexing Engine <https://habr.com/ru/company/postgrespro/blog/441962/>
+    1. Part 2: Interface of Access Methods <https://habr.com/ru/company/postgrespro/blog/442546/>
+    1. Part 4: BTree <https://habr.com/en/companies/postgrespro/articles/443284/>
+    1. (You will be responsible for the other parts in the next topic.)
 1. Chapter 7 of Internals of Postgres <http://www.interdb.jp/pg/pgsql07.html>
+1. Parallel Query sections of the Postgres documentation (15.1-15.3) <https://www.postgresql.org/docs/current/parallel-query.html>
+
+**Types of Indexes**
 
 Built-in Indexes (data structures) in postgres:
-1. BTree **(most important)**
+1. **BTree**: most important, used in 90% of situations
 1. Hash
 1. Gin
 1. BRIN
@@ -35,13 +47,13 @@ Common user-added indexes:
 1. RUM <https://github.com/postgrespro/rum>
 1. ivfflat <https://github.com/pgvector/pgvector>
 
-<!--
 Vocabulary:
 1. "access method" = "index"
+<!--
 1. "indexed-field operator expression" is an expression in a `WHERE` clause where the expression to the left of the operator has been indexed
 -->
 
-## BTree details
+**BTree details**
 
 1. You should have a basic intuitive understanding, but you won't need to understand low-level details
 
@@ -87,12 +99,13 @@ Vocabulary:
 
     1. You write a `SELECT` statement which describes "what" you want
     1. The *query planner* automatically determines "how" to calculate it 
-        1. It will re-write your SQL queries into more efficient expressions
+        1. It will re-write your SQL queries into imperative code
         1. It will choose the best algorithms for your particular combination of hardware, data, indexes, and query expressions
-        1. There are various theorems that prove that no system can perform these steps optimally in all circumstances,
-           but it still is pretty good
+        1. There are various theorems that prove that no system can perform these steps optimally in all circumstances
+           1. but it still is pretty good
+           1. optimal in most practical circumstances
         1. To fully understand the query planner, you should take a course on compilers
-        1. Reference: <http://www.interdb.jp/pg/pgsql03.html>
+        1. Optional Reference: <http://www.interdb.jp/pg/pgsql03.html>
 
     1. `EXPLAIN`
         1. Shows which algorithms postgres will use for any query
@@ -107,7 +120,6 @@ Vocabulary:
     1. `a` = number of tuples per page in the table
     1. `b` = branching factor of the B-Tree
     1. `k` = number of rows returned by the `SELECT`
-    1. All runtimes are "worst case" bounds
 
 ### Table Scanning Strategies
 
@@ -136,7 +148,7 @@ WHERE condition
 
 1. Index Only Scan
     1. Requirements:
-        1. The index is a "covering index"
+        1. The index is a *covering index*
         1. That is, all of the columns returned by the `SELECT` query and all columns in the `WHERE` clause are present in the index
     1. Runtime:
         1. table pages accessed = 0
