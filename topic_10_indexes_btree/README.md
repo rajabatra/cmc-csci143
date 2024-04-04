@@ -14,6 +14,11 @@ Indexes are data structures used for making SQL queries fast.
 
 1. Advantage:
     1. reduce the runtime of finding a row (for `SELECT`/`UPDATE`/`DELETE` statements) from $O(n)$ down to $\Theta(\log n)$
+
+        > **Note:**
+        > I will make heavy use of $O$, $\Omega$, and $\Theta$ notation in this section.
+        > You can see <https://en.wikipedia.org/wiki/Big_O_notation#Formal_definition> for a review.
+
     1. required for the implementation of `UNIQUE` constraints (and thus `FOREIGN KEY` constraints)
 
 1. Disadvantage:
