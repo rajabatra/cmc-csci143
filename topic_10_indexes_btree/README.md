@@ -13,11 +13,11 @@ Indexes are data structures used for making SQL queries fast.
     1. Careful use of indexes will solve 99% of your SQL performance problems
     1. Most industry devs never properly learn SQL -> don't understand indexes -> can't make their code fast
 
-<img src=Strip-magicien-du-code-650-finalenglish.jpg />
+<img width=400px src=Strip-magicien-du-code-650-finalenglish.jpg />
 
 <br/><br/>
 
-<img src=Strips-Fier-600-finalenglish.gif />
+<img width=400px src=Strips-Fier-600-finalenglish.gif />
 
 ## Lecture Notes
 
@@ -228,11 +228,11 @@ Two basic strategies:
 
     1. Really good/fancy code here... but it's sorting is intrinsically slow $\Omega(n)$... and so you should try to avoid sorting
 
-<img src=sort.jpg width=300px />
-
 1. Use an index
     1. Only applicable for index only/index scan (i.e. not bitmap scan)
     1. Complex relationship between index column order and WHERE clause conditions
+
+<img src=sort.jpg width=300px />
 
 ### Aggregate Strategies
 
