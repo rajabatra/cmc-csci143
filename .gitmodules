@@ -72,3 +72,6 @@
 [submodule "topic_07_transactions/lab-transactions"]
 	path = topic_07_transactions/lab-transactions
 	url = https://github.com/mikeizbicki/lab-transactions
+[submodule "topic_10_indexes_btree/twitter_postgres_parallel"]
+	path = topic_10_indexes_btree/twitter_postgres_parallel
+	url = https://github.com/mikeizbicki/twitter_postgres_parallel
