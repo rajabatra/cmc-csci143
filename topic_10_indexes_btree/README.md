@@ -17,7 +17,7 @@ Indexes are data structures used for making SQL queries fast.
 
         > **Note:**
         > I will make heavy use of $O$, $\Omega$, and $\Theta$ notation in this section.
-        > You can see <https://en.wikipedia.org/wiki/Big_O_notation#Formal_definition> for a review.
+        > You can see <https://en.wikipedia.org/wiki/Big_O_notation#Family_of_Bachmann%E2%80%93Landau_notations> for a review.
 
     1. required for the implementation of `UNIQUE` constraints (and thus `FOREIGN KEY` constraints)
 
