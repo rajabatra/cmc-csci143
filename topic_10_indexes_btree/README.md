@@ -228,7 +228,7 @@ Two basic strategies:
 
     1. Really good/fancy code here... but it's sorting is intrinsically slow $\Omega(n)$... and so you should try to avoid sorting
 
-    <img src=sort.jpg width=300px />
+<img src=sort.jpg width=300px />
 
 1. Use an index
     1. Only applicable for index only/index scan (i.e. not bitmap scan)
