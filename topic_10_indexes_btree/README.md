@@ -13,11 +13,11 @@ Indexes are data structures used for making SQL queries fast.
     1. Careful use of indexes will solve 99% of your SQL performance problems
     1. Most industry devs never properly learn SQL -> don't understand indexes -> can't make their code fast
 
-        <img src=Strip-magicien-du-code-650-finalenglish.jpg />
+<img src=Strip-magicien-du-code-650-finalenglish.jpg />
 
-        <br/><br/>
+<br/><br/>
 
-        <img src=Strips-Fier-600-finalenglish.gif />
+<img src=Strips-Fier-600-finalenglish.gif />
 
 ## Lecture Notes
 
