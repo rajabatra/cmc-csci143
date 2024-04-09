@@ -235,7 +235,7 @@ Two basic strategies:
 
                 Comparison Ops: $\Theta(n + N \log N)$
 
-                Note that $\Theta(n + N\logN) < \Theta(n\log n)$ whenever $N < n$.
+                Note that $\Theta(n + N\log N) < \Theta(n\log n)$ whenever $N < n$.
 
         1. If the input data does not fit into `work_mem`:
 
