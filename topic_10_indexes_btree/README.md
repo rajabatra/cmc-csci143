@@ -227,19 +227,24 @@ Two basic strategies:
 
 1. Explicit sort
     1. Technically, 3 different types:
-        1. If the table scan data fits into `work_mem` (typically 20MB), then:
-            1. Top-N Heap Sort if `LIMIT N` clause
+        1. If the input data fits into `work_mem` (typically 20MB), then:
+            1. If no `LIMIT` clause: Quicksort
+
+                Comparison Ops: $\Theta(n \log n)$ (average case only)
+
+            1. If `LIMIT N` clause: Top-N Heap Sort
 
                 Comparison Ops: $\Theta(n + N \log N)$
 
-            1. otherwise Quicksort
+                Note that $\Theta(n + N\logN) < \Theta(n\log n)$ whenever $N < n$.
 
-                Comparison Ops: $\Theta(n \log n)$ (average case only)
-        1. Otherwise a specialized merge sort that saves intermediate steps to the harddrive
+        1. If the input data does not fit into `work_mem`:
+
+            A specialized merge sort that saves intermediate steps to the harddrive
 
         1. Reference: <https://www.cybertec-postgresql.com/en/postgresql-improving-sort-performance/>
 
-    1. Really good/fancy code here... but it's sorting is intrinsically slow $\Omega(n)$... and so you should try to avoid sorting
+    1. Really good/fancy code here... but sorting is intrinsically slow... best case is $\Omega(n)$... and so you should try to avoid it
 
 1. Use an index
     1. Only applicable for index only/index scan (i.e. not bitmap scan)
@@ -444,9 +449,7 @@ Postgres will automatically parallelize queries
 
 <img src='2015ParallelismFTW.jpg' width=300px />
 
-1. All SQL queries can be parallelized in theory
-    1. In practice, not 100% of queries can be parallelized in postgres due to technical engineering issues
-    1. The devs are working to fix this
+1. Most SQL queries can be parallelized using an internal MapReduce system
 1. Parallelism incurs a (small) constant overhead to setup,
    and so very small queries will not be parallelized
 
