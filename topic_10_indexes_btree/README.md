@@ -165,7 +165,7 @@ WHERE condition
         1. That is, all of the columns returned by the `SELECT` query and all columns in the `WHERE` clause are present in the index
     1. Runtime:
         1. table pages accessed = 0
-            1. this assumes that there are no "invisble" tuples in the table, which is checked using the visibility map
+            1. this assumes that there are no non-visble tuples in the table, which is checked using the visibility map
             1. this value can be non-zero if we must examine the `xmin`/`xmax` system columns to determine if the tuple is visible
             1. regular vacuuming helps keep the visibility map "clean" and ensures this scan is fast
             1. if not vacuumed regularly, then worst case is $\Theta(k)$
