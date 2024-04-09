@@ -159,6 +159,22 @@ WHERE condition
         1. `n` is small
         1. the `SELECT` statement will return a "significant" fraction of the data (because the `WHERE` clause selects most of the data)
 
+1. Index Scan
+    1. The access method returns TID values one by one until the last matching row is reached
+    1. Requirements:
+        1.  At least one column of the `WHERE` clause is present in the index... and it should be a highly selective one
+    1. Runtime:
+        1. table pages accessed = $\Theta(k)$
+            1. Note that the number of pages is $\Theta(n/a)$, and k is only guaranteed to be <= n, so this can potentially access more pages than exist in the table!
+            1. No guarantee that the same page will not be accessed multiple times
+            1. Caching of pages in memory somewhat mitigates this problem
+        1. index pages accessed = $\Theta(\log_b n + k/b)$
+        1. comparison operations = $\Theta(b\log_b n + k)$
+        1. medium constant factor
+    1. Used when (AND):
+        1. $k << n/a$
+        1. only one index will be consulted
+
 1. Index Only Scan
     1. Requirements:
         1. The index is a *covering index*
@@ -174,23 +190,6 @@ WHERE condition
         1. small constant factor
     1. Used when:
         1. Essentially whenever possible... this is the best case scenario for indexes
-
-1. Index Scan
-
-    1. The access method returns TID values one by one until the last matching row is reached
-    1. Requirements:
-        1.  At least one column of the `WHERE` clause is present in the index... and it should be a highly selective one
-    1. Runtime:
-        1. table pages accessed = $\Theta(k)$
-            1. Note that the number of pages is $\Theta(n/a)$, and k is only guaranteed to be <= n, so this can potentially access more pages than exist in the table!
-            1. No guarantee that the same page will not be accessed multiple times
-            1. Caching of pages in memory somewhat mitigates this problem
-        1. index pages accessed = $\Theta(\log_b n + k/b)$
-        1. comparison operations = $\Theta(b\log_b n + k)$
-        1. medium constant factor
-    1. Used when (AND):
-        1. $k << n/a$
-        1. only one index will be consulted
 
 1. Bitmap Scan
     1. Most complicated scan method
