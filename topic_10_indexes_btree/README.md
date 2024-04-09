@@ -6,8 +6,6 @@ The `twitter_postgres_parallel` homework will be due ~~Tuesday 9 April~~ Thursda
 
 **Announcements (Tuesday 9 April):**
 
-~~Quiz this Thursday~~ No more quizzes in this class :)
-
 Courses for next semester:
 1. [CSCI145/MATH166 Data Mining](https://github.com/mikeizbicki/cmc-csci145-math166)
 1. [CSCI181 Languages for Computing](https://github.com/mikeizbicki/cmc-csci181-languages)
@@ -21,6 +19,13 @@ Courses for next semester:
     When: tomorrow, Wednesday April 10th
 
     Where: Quantitative and Computing Lab (QCL), 3:45-4:45pm
+
+Remainder of this course:
+1. ~~Quiz this Thursday~~ No more quizzes in this class :)
+1. Graduating students only:
+    1. Signup for final exam timeslot: <https://docs.google.com/spreadsheets/d/1axeCxjA8i8koFtmPWlzSbos108D8XAtXbGEkiU63E30/edit#gid=0>
+1. Non-graduating students:
+    1. We will discuss your final project (basically build your own database-backed webpage from scratch) the week the graduating students are doing their final exam
 
 ## Lecture Notes
 
@@ -482,6 +487,7 @@ You must know how the following concepts relate to all of the query plan strateg
 1. Expression indexes
 1. Partial indexes
 1. `UNIQUE` indexes (with and without an `INCLUDE` statement)
+1. CLUSTER and ANALYZE commands
 
 ### Summary
 
