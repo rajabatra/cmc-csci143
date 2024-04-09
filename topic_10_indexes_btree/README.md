@@ -1,8 +1,26 @@
 # B-Trees and Indexes
 
-**Announcements:**
+**Announcements (Thursday 4 April):**
 
 The `twitter_postgres_parallel` homework will be due ~~Tuesday 9 April~~ Thursday 11 April.
+
+**Announcements (Tuesday 9 April):**
+
+~~Quiz this Thursday~~ No more quizzes in this class :)
+
+Courses for next semester:
+1. [CSCI145/MATH166 Data Mining](https://github.com/mikeizbicki/cmc-csci145-math166)
+1. [CSCI181 Languages for Computing](https://github.com/mikeizbicki/cmc-csci181-languages)
+
+    <img src=math.webp width=400px />
+
+1. Math Tea 
+
+    What: Talk to professors about upcoming courses
+
+    When: tomorrow, Wednesday April 10th
+
+    Where: Quantitative and Computing Lab (QCL), 3:45-4:45pm
 
 ## Lecture Notes
 
@@ -143,7 +161,7 @@ FROM table
 WHERE condition
 ```
 
-<!--   Reference: <https://habr.com/ru/company/postgrespro/blog/441962/> -->
+Reference: <https://habr.com/ru/company/postgrespro/blog/441962/>
 
 1. Sequential Scan
 
@@ -222,6 +240,8 @@ Used for:
 1. Adding an `ORDER BY` clause
 1. When downstream strategies need sorted data
 
+Reference: <https://www.cybertec-postgresql.com/en/postgresql-improving-sort-performance/>
+
 Two basic strategies:
 
 1. Explicit sort
@@ -240,8 +260,6 @@ Two basic strategies:
         1. If the input data does not fit into `work_mem`:
 
             A specialized merge sort that saves intermediate steps to the harddrive
-
-        1. Reference: <https://www.cybertec-postgresql.com/en/postgresql-improving-sort-performance/>
 
     1. Really good/fancy code here... but sorting is intrinsically slow... best case is $\Omega(n)$... and so you should try to avoid it
 
@@ -396,20 +414,18 @@ Three types of join strategies:
             In particular, with this runtime, there is no performance penalty for storing data in normalized form instead of a denormalized form.
             But every other join operation has an asymptotic overhead for storing data in a normalized form. 
 
-<!--
-1. Conclusions:
-    1. merge/hash join faster than nested loop join when:
-        1. no indexes available (merge/hash join is `O(m + n)`, nested loop join is `O(mn)`)
-        1. have indexes, but both tables are large (merge/hash join is `O(m + n)`, nested loop join is `O(m log n)` or `O(n log m)`)
-    1. nested loop join is faster when:
-        1. 
-    1. indexes:
-        1. allow faster nested loop joins `O(m log(n))` or `O(n log (m))`
-        1. allow faster merge joins by removing the need for an explicit sort
-    1. what you need to know:
-        1. how to create indexes to make a specific query faster
-        1. how to predict which algorithm will be fastest given different conditions
--->
+Conclusions:
+1. merge/hash join faster than nested loop join when:
+    1. no indexes available (merge/hash join is $O(m + n)$, nested loop join is $O(mn)$)
+    1. have indexes, but both tables are large (merge/hash join is $O(m + n)$, nested loop join is $O(m log n)$ or $O(n log m)$)
+1. nested loop join is faster when:
+    1. the tables are very small (because there is less overhead)
+1. indexes:
+    1. allow faster nested loop joins $O(m log(n))$ or $O(n log (m))$
+    1. allow faster merge joins by removing the need for an explicit sort
+1. what you need to know:
+    1. how to create indexes to make a specific query faster
+    1. how to predict which algorithm will be fastest given different conditions
 
 Join Order
 
@@ -422,7 +438,6 @@ Join Order
 
         1. <https://www.querifylabs.com/blog/introduction-to-the-join-ordering-problem>
         1. <https://www.cockroachlabs.com/blog/join-ordering-pt1/>
-
 
     1. It's analogous to the importance of multiplying matrices in the correct order for optimal performance
 
