@@ -173,7 +173,7 @@ Reference: <https://habr.com/ru/company/postgrespro/blog/441962/>
     1. Requirements:
         1. Can always be used
     1. Runtime:
-        1. table pages accessed = $O(n)$, $\Omega(k)$
+        1. table pages accessed = $O(n)$
         1. index pages accessed = 0
         1. comparison operations = $O(n)$, $\Omega(k)$
         1. small constant factor
