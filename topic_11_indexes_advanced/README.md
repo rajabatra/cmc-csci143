@@ -28,9 +28,9 @@
 
 1. Non-graduating students can sign up for final exam timeslots: <https://docs.google.com/spreadsheets/d/1axeCxjA8i8koFtmPWlzSbos108D8XAtXbGEkiU63E30/edit#gid=0>
 
-<img src=index-all-the-things-meme.jpg width=400px />
-
 ## Lecture Notes
+
+<img src=index-all-the-things-meme.jpg width=400px />
 
 **Overview:**
 
