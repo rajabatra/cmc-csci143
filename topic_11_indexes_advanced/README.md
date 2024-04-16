@@ -186,7 +186,11 @@ WHERE text LIKE '%corona%';
 
 ### Full Text Search (FTS) outside Postgres
 
-<img src=8s90ho7un6i51.jpg width=400px />
+This section is background info and not required for the final exam.
+
+1. FTS is a hard unsolved problem
+
+    <img src=8s90ho7un6i51.jpg width=350px />
 
 1. There is no SQL standard for FTS
 
