@@ -280,7 +280,8 @@ WHERE text LIKE '%corona%';
             1. `example`, `examples`, `exemplary` all get converted to `exampl`
         1. stop word removal: remove short, non-semantic words
 
-        This makes search more "accurate"
+        This makes search more "accurate";
+        in this class, we are just focusing on speed
 
         ```
         postgres=# SELECT to_tsvector('english', 'this is a testing example');
