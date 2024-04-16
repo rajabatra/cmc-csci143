@@ -1,8 +1,42 @@
 # Week 12: More Indexes, Full Text Search, JSON Search
 
+**Announcements:**
+
+1. The last lab:
+    1. Lots of bad grades because:
+        1. The indexes you provided would not speed up the queries.
+            (I gave 0/4 for this error.)
+        1. You didn't use the EXPLAIN command to verify that your queries actually use the index.
+    1. If you used `pg_tgrm`+GIN index, expect to explain to me how this works in your final exam.
+
+1. No lab this week :)
+
+1. Thursday will be a final review session.
+
+    Today we will finish going over material.
+
+1. Non-graduating students can sign up for final exam timeslots: <https://docs.google.com/spreadsheets/d/1axeCxjA8i8koFtmPWlzSbos108D8XAtXbGEkiU63E30/edit#gid=0>
+
 <img src=index-all-the-things-meme.jpg width=400px />
 
-## Hash Index
+## Lecture Notes
+
+**Overview:**
+
+Required readings:
+1. ~~Hash index: <https://habr.com/ru/company/postgrespro/blog/442776/>~~
+1. GIN index: <https://habr.com/ru/company/postgrespro/blog/448746/>
+1. RUM index: <https://habr.com/ru/company/postgrespro/blog/452116/>
+1. ~~GIST Index: <https://habr.com/ru/company/postgrespro/blog/444742/>~~
+1. ~~SP-GIST Index: <https://habr.com/en/companies/postgrespro/articles/446624/>~~
+1. ~~BRIN Index: <https://habr.com/en/companies/postgrespro/articles/452900/>~~
+
+For your homework, you have to use GIN/RUM indexes to speed up:
+1. full text search
+1. JSONB search
+
+<!--
+### Hash Index
 
 1. reference: <https://habr.com/ru/company/postgrespro/blog/442776/>
 
@@ -45,8 +79,9 @@
    ```
    CREATE INDEX tweet_tags_idx_hash ON tweet_tag USING hash (tag);
    ```
+-->
 
-## (Some) Difficulties of Full Text Search
+### (Some) Difficulties of Full Text Search
 
 Consider the following query that finds tweets containing the word `corona`:
 ```
@@ -57,9 +92,9 @@ WHERE text LIKE '%corona%';
 
 1. Recall that the `%` in a `LIKE`/`ILIKE` clause is a wildcard character that matches any string, much like the glob `*` in the shell.
 
-1. Neither btree nor hash index cannot speed up this query.
+1. Btree indexes cannot speed up this query.
 
-1. If we only had a single wildcard,
+1. If we only had a single wildcard at the end of the query,
    then we could use a btree index.
    For example, the following condition:
    ```
@@ -70,9 +105,15 @@ WHERE text LIKE '%corona%';
    WHERE text >= 'corona' AND text < 'coronb'
    ```
    and btree indexes support inequality search efficiently.
+   <!--
    A hash index still would not be able to speed up this query because it only supports exact equality search.
+   -->
 
-   **QUESTION:**
+   > **NOTE:**
+   > Recall that you need to use the `text_pattern_ops` access method in order to use a LIKE operator,
+   > and you use the default access method in order to use the >= and < operators.
+
+1. **QUESTION:**
    If we replace `LIKE` with `ILIKE` in the above queries,
    how does that affect the performance of a btree index?
 
@@ -111,7 +152,7 @@ WHERE text LIKE '%corona%';
    WHERE tag LIKE '#corona%'
    ```
 
-## Full Text Search (FTS) outside Postgres
+### Full Text Search (FTS) outside Postgres
 
 <img src=8s90ho7un6i51.jpg width=400px />
 
@@ -188,12 +229,44 @@ WHERE text LIKE '%corona%';
         1. People who don't know postgres might think it's weird to use postgres, but most people who know postgres would think it's smart, especially if you're already using postgres
         1. We'll (eventually) talk about an extension to postgres called pspacy (that I'm currently developing) that makes postgres FTS even more powerful
 
-## FTS in postgres
+### FTS in postgres
 
 1. All of the basic theory we'll discus will apply to all other FTS solutions
 
-1. Two important types: `tsvector` and `tsquery`
+1. Two important types:
+    1. `tsvector` represents text that can be searched
 
+        ```
+        postgres=# SELECT to_tsvector('simple', 'this is a testing example');
+                          to_tsvector                  
+        -----------------------------------------------
+         'a':3 'example':5 'is':2 'testing':4 'this':1
+        ```
+
+        ```
+        postgres=# SELECT to_tsvector('english', 'this is a testing example');
+             to_tsvector     
+        ---------------------
+         'exampl':5 'test':4
+        ```
+
+    1. `tsquery` represents the search query
+
+        ```
+        postgres=# SELECT to_tsquery('english', 'this & is & an & example & test');
+            to_tsquery
+        -------------------
+         'exampl' & 'test'
+        ```
+
+        ```
+        postgres=# SELECT to_tsquery('english', 'example | test');
+            to_tsquery
+        -------------------
+         'exampl' | 'test'
+        (1 row)
+        ```
+    <!--
     1. We'll only cover a basic survey here, more details in the documentation
 
        <img src=a5skfy5y88x11.jpg width=300px />
@@ -218,6 +291,7 @@ WHERE text LIKE '%corona%';
        SELECT to_tsvector('simple', 'this is a test');
        SELECT 'this is a test'::tsvector;
        ```
+    -->
 
     1. The following query does English language text search for tweets containing the string `coronavirus`:
        ```
@@ -232,7 +306,7 @@ WHERE text LIKE '%corona%';
        CREATE INDEX tweets_idx_fts on tweets USING gin(to_tsvector('english', text));
        ```
 
-## JSONB Operations
+### JSONB Operations
 
 Many new operators for querying `JSONB` type.
 
@@ -242,15 +316,15 @@ Important operators/functions:
 1. `jsonb_pretty`
 1. `->` / `->>`
 1. `jsonb_path_query`
-1. `@@`
 1. `jsonb_array_elements`
+1. `@@` (this is what can be sped up with an index)
 
 References:
 1. Postgres operators: <https://www.postgresql.org/docs/current/functions-json.html>
 1. JSONPath/JSON Selector syntax tutorial: <https://dev.to/rezigned/an-intoduction-to-json-selector-1mho>
 1. Postgres JSONPath + relation to GIN: <https://habr.com/en/company/postgrespro/blog/500440/>
 
-## Indexes for the `@@` operator
+### Indexes for the `@@` operator
 
 GIN index (Generalized Inverted iNdex)
 1. reference: <https://habr.com/ru/company/postgrespro/blog/448746/>
@@ -291,9 +365,11 @@ RUM Index
     1. uses more space than the GIN index (due to metainfo)
     1. not built-in to postgres, and must compile/install a separate extension
 
+<!--
 GIST Index
 1. Reference: <https://habr.com/ru/company/postgrespro/blog/444742/>
 1. We won't cover in detail
 1. Faster inserts, slower lookups
     1. For most applications, fast lookups are much more important than fast inserts
     1. So GIST not often used in practice for FTS
+-->
