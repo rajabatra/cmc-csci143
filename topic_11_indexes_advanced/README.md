@@ -170,8 +170,9 @@ WHERE text LIKE '%corona%';
    Each of those individually can be sped up with a b-tree,
    but there's still a LOT of queries to try.
 
-   Some databases (i.e. SQLite) default to case insensitive search with `LIKE`,
-   but postgres maintains the case (in)sensitivity of (I)LIKE for performance reasons.
+   > **IMPORTANT:**
+   > Some databases (i.e. SQLite) default to case insensitive search with `LIKE`,
+   > but postgres maintains the case (in)sensitivity of (I)LIKE for performance reasons.
 
 1. These "one-sided" wildcard queries are not useful for full text search,
    but they are useful when finding hashtags about coronavirus.
