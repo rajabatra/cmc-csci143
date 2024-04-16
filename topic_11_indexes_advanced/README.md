@@ -7,9 +7,18 @@
         1. The indexes you provided would not speed up the queries.
             (I gave 0/4 for this error.)
         1. You didn't use the EXPLAIN command to verify that your queries actually use the index.
-    1. If you used `pg_tgrm`+GIN index, expect to explain to me how this works in your final exam.
+    1. My solution used `reverse` + `lower` + `LIKE` + `text_pattern_ops`
+    1. If you used `pg_tgrm`+GIN index:
+        1. You answered the question as asked, so I gave full credit
+        1. But it wasn't the intended solution
+        1. It's not as fast as the btree solution
+        1. My guess is that most of you who used this solution just randomly copied stuff from ChatGPT
+        1. Expect to explain to me how this works in your final exam
 
-1. No lab this week :)
+1. No lab this week
+
+    1. Due to datascience capstone presentations
+    1. A simple assignment posted to github issues: <https://github.com/mikeizbicki/cmc-csci143>
 
 1. Thursday will be a final review session.
 
