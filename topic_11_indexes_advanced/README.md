@@ -275,6 +275,11 @@ WHERE text LIKE '%corona%';
          'a':3 'example':5 'is':2 'testing':4 'this':1
         ```
 
+        If you specify a language, the `to_tsvector` function will perform:
+        1. stemming: convert all words into their "root word"
+            1. `example`, `examples`, `exemplary` all get converted to `exampl`
+        1. stop word removal: remove short, non-semantic words
+
         ```
         postgres=# SELECT to_tsvector('english', 'this is a testing example');
              to_tsvector     
@@ -298,8 +303,17 @@ WHERE text LIKE '%corona%';
          'exampl' | 'test'
         (1 row)
         ```
-    <!--
-    1. We'll only cover a basic survey here, more details in the documentation
+
+    1. The following query does English language text search for tweets containing the string `coronavirus`:
+       ```
+       SELECT text
+       FROM tweets
+       WHERE to_tsvector('english', text) @@ to_tsquery('english', 'coronavirus');
+       ```
+       The `@@` operator should be read as "contains".
+
+
+    1. Reviewing the documentation may help with the homework assignment
 
        <img src=a5skfy5y88x11.jpg width=300px />
 
@@ -310,28 +324,6 @@ WHERE text LIKE '%corona%';
        1. <https://www.postgresql.org/docs/13/datatype-textsearch.html>
 
        1. <https://www.postgresql.org/docs/13/functions-textsearch.html>
-
-    1. `tsvector` and `tsquery` represent fully normalized text documents and queries;
-       they should typically be constructed with the `to_tsvector` and `to_tsquery` functions.
-
-       Compare the following examples:
-
-       ```
-       SELECT to_tsvector('english', 'this is a test');
-       SELECT to_tsvector('this is a test');
-
-       SELECT to_tsvector('simple', 'this is a test');
-       SELECT 'this is a test'::tsvector;
-       ```
-    -->
-
-    1. The following query does English language text search for tweets containing the string `coronavirus`:
-       ```
-       SELECT text
-       FROM tweets
-       WHERE to_tsvector('english', text) @@ to_tsquery('english', 'coronavirus');
-       ```
-       The `@@` operator should be read as "contains".
 
     1. The GIN/RUM indexes can be used to speed up queries that use the `@@` operator, most commonly FTS.
        ```
