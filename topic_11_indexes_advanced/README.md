@@ -1,4 +1,4 @@
-# Week 12: More Indexes, Full Text Search, JSON Search
+# Topic 11: More Indexes, Full Text Search, JSON Search
 
 **Announcements:**
 
