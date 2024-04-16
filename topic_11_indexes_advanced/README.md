@@ -20,6 +20,8 @@
     1. Due to datascience capstone presentations
     1. A simple assignment posted to github issues: <https://github.com/mikeizbicki/cmc-csci143>
 
+1. Lots of good github issues questions; I believe everything was resolved in office hours that is still open, but if not, then let me know.
+
 1. Thursday will be a final review session.
 
     Today we will finish going over material.
@@ -121,6 +123,26 @@ WHERE text LIKE '%corona%';
    > **NOTE:**
    > Recall that you need to use the `text_pattern_ops` access method in order to use a LIKE operator,
    > and you use the default access method in order to use the >= and < operators.
+
+1. **QUESTION:**
+    Can we use a btree to speed up searches that end with `corona`?
+
+    **ANSWER:** Yes, but you must be careful.
+
+    The where clause
+    ```
+    WHERE text LIKE '%corona'
+    ```
+    cannot be speed up with a btree index.
+
+    Instead, you must move the wildcard to the end of the string with the reverse function:
+    ```
+    WHERE reverse(text) LIKE reverse('%corona')
+    ```
+    and create the following index
+    ```
+    CREATE INDEX ON tweets(reverse(text) text_pattern_ops);
+    ```
 
 1. **QUESTION:**
    If we replace `LIKE` with `ILIKE` in the above queries,
