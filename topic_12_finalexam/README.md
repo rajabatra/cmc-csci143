@@ -29,6 +29,8 @@ Grading:
         1. You will provide any needed indexes
             1. Correct syntax is much less important than the right idea
         1. Then describe what you expect the EXPLAIN query plan would look like
+            1. why it's fast
+            1. why it can't be made faster (if applicable)
         1. I might ask some minor followup questions here to help you get more points
     1. 8 points for detailed followup questions:   
         1. You should be prepared to draw any of the figures from the required reading
@@ -42,3 +44,11 @@ Grading:
             1. xid wraparound problem
 1. I will tell you your grade immediately after the final is over
 
+    **Note:**
+    I am extending the due date for the `twitter-postgres-indexes` assignment for all students until Tuesday, April 30.
+
+    1. I recommend graduating students still finish before Sunday April 21 so that:
+        1. I can give you your final grade during the oral exam.
+        1. You can be done with the course early.
+
+    1. The extension will give you all a bit more flexibility, however, in scheduling your time for your last few days as a student.
