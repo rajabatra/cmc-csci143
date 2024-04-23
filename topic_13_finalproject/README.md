@@ -4,9 +4,11 @@ You will create your own database-backed webpage from scratch using the Instagra
 The default project will be a Twitter clone webpage, but you are free to create any type of webpage.
 
 **Learning Objectives:**
+1. Create a CRUD website from scratch
+    
+   CRUD = Create Read Update Destroy (everything you might want to do to a database)
 1. Design your own database schema
 1. Integrate knowledge from all parts of the course together
-1. Be able to easily create future websites (e.g. to start your own business)
 1. Have a production-ready project you can show off to future employers
 1. *If you took CS40:* see how much you've grown as a programmer
 
@@ -40,9 +42,26 @@ There are 8 required tasks, each worth 4 points.
 1. There should be a production `docker-compose.yml` file with a web service, postgres service, and nginx service.
 1. You should be able to start your web page by running `docker-compose up` with either of these yml files.
 1. You must have appropriate volumes defined so that bringing the containers down does not delete the database.
+1. You must store all (non-sensitive) project files in a git repo.
+    It should be trivial to bring your project up/down from only the files in the repo.
+1. You must create your own github actions test case that:
+    1. builds the containers,
+    1. brings the containers up,
+    1. loads test data into the database,
+    1. and passes (i.e. turns green) only when there are no errors in this process.
 
 > **Hint:**
 > I recommend starting this project by copying your `flask-on-docker` homework directory rather than starting completely from scratch.
+> The only new requirement here is creating your own github actions test cases.
+> You can use my github actions files from any of the homeworks as an example.
+> They are located in the `.github/workflows` directory of the project.
+
+> **Hint:**
+> I recommend you get these test cases working first.
+> Then you can rely on the continuous integration to help ensure that the code you are writing is not breaking any of your tests.
+> Good/fast developers heavily rely on test cases to ensure their code is working.
+> 
+> <img src=tests.webp width=400px />
 
 **Task 2:** You must design a database.
 1. The schema file should
@@ -65,8 +84,8 @@ There are 8 required tasks, each worth 4 points.
 
     > **HINT:**
     > Write your script so that it takes a parameter of the number of rows to add to the tables.
-    > As you're developing, you should use a small number of rows (say 100) so that all of your SQL queries will always run fast.
-    > Then once you have a basic prototype working, rerun the script with the full amount of data.
+    > In your test cases (and as you're developing in general), you should use a small number of rows (say 100) so that all of your SQL queries will always run fast.
+    > Then once you have a basic prototype working, rerun the script in your "production" environment with the full amount of data.
 
 **Task 3-8:** The remaining 6 tasks each correspond to an individual route on your webpage.
 
@@ -95,8 +114,9 @@ There are 8 required tasks, each worth 4 points.
 1. you should display only the most recent 20 messages, and there should be links at the bottom that will take you to previous messages
 
     > **Hint:**
-    > The main challenge of this route will be writing a good SQL query and corresponding index to achieve the requirements above.
-
+    > A basic working version of this route is already given in the lecture videos above.
+    > This version, however, does NOT include a fast SQL command and corresponding index.
+    > The main challenge of this route will be creating the SQL command/index.
 
 *Route `/login`*
 1. a link to this page should only be visible in your menu if the user is not logged in
@@ -109,6 +129,9 @@ There are 8 required tasks, each worth 4 points.
 
 1. you must display appropriate error messages if the user enters an incorrect username/password
 1. after a user successfully logs in, you must automatically redirect them to the homepage
+
+    > **HINT:**
+    > A fully working login system is implemented in the lecture videos above.
 
 *Route `/logout`*
 1. a link to this page should only be visible if the user is logged in
@@ -136,19 +159,51 @@ There are 8 required tasks, each worth 4 points.
 1. if many messages match search pattern, then the resulting messages must have next/previous buttons to traverse the pages
 1. for full credit on this route, you must use a RUM index instead of a GIN index for the FTS
 
+**Other Notes:**
+1. Good front end styling is not required, but it might make the development experience "more fun", so it might be worth spending 20 minutes to do
+1. If any route results in an error (404, 503, etc.), then you will not get any credit for that route.
+1. If any route has a SQL injection vulnerability, then you will get -2/4 points for the route.
+
+    <img src=sqlinjection.png width=500px />
+
+    The video lectures above and [this stackoverflow question](https://stackoverflow.com/questions/332365/how-does-the-sql-injection-from-the-bobby-tables-xkcd-comic-work) cover SQL injections in detail.
+
 ## Grading
 
 You will demo your webpage to me during your final exam.
 
 In the final exam:
 
-1. You will bring a printout of your SQL schema.
+1. You will bring a printout of your `schema.sql` file.
+    Recall that this file must contain your CREATE INDEX commands.
 1. You will have your web server already running at the start of the exam.
 1. You will tell me what port it is running on, and I will connect to the webserver using my computer.
-1. I will traverse your webpages, verifying all of the functionality.
-1. In order to implement the routes as specified, you will have to implement:
+
+    > **Hint:**
+    > You should ensure that someone else can connect to your webpage before the exam.
+    > If I can't connect, this will result in a major penalty.
+
+1. I will traverse your webpages, verifying all of the functionality and checking that the SQL queries are fast by checking that the pages load in a reasonable amount of time.
+1. In order to implement the routes as specified above, you will have to implement at least one of each of the following:
     1. a query without a JOIN
     1. a query with a JOIN
     1. a full text search query
 
     I will select three of these queries for you, and then the final exam will proceed as it did for the graduating students.
+    The final exam will be graded on a separate 64 point scale.
+
+## Recommended timeline
+
+I recommend you try to meet the following two milestones:
+
+1. Tasks 1, 2 complete by Thursday (25 April)
+1. The `/`, `/login`, and `/logout` routes (all covered in the videos above) complete by next week Tuesday (30 April)
+
+This will ensure that if you encounter difficulties, you will have time to ask me questions to get them resolved.
+
+**Course Timeline:**
+
+1. No more standard lectures/labs in the main lecture/lab rooms.
+1. I will be available during all lecture/lab timeslots in my office for 1-1 questions.
+    1. Only exception is no office hours Thursday (11:00am-12:30pm); but I will still be available during class hours from (9:35am - 10:50am).
+    1. If there's a large demand, we will move across the hall to the math commons room (Adams 2nd floor, east side of building).
