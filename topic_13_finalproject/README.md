@@ -9,6 +9,7 @@ The default project will be a Twitter clone webpage, but you are free to create 
    CRUD = Create Read Update Destroy (everything you might want to do to a database)
 1. Design your own database schema
 1. Integrate knowledge from all parts of the course together
+1. Learn required new material "on your own"
 1. Have a production-ready project you can show off to future employers
 1. *If you took CS40:* see how much you've grown as a programmer
 
@@ -61,7 +62,7 @@ There are 8 required tasks, each worth 4 points.
 > Then you can rely on the continuous integration to help ensure that the code you are writing is not breaking any of your tests.
 > Good/fast developers heavily rely on test cases to ensure their code is working.
 > 
-> <img src=tests.webp width=400px />
+> <img src=tests.webp width=300px />
 
 **Task 2:** You must design a database.
 1. The schema file should
@@ -157,7 +158,21 @@ There are 8 required tasks, each worth 4 points.
 1. the user should be given an input field to enter a search query
 1. after the search query has been entered, a FTS should be performed over the messages, and the results returned in a format similar to the home (`/`) route
 1. if many messages match search pattern, then the resulting messages must have next/previous buttons to traverse the pages
-1. for full credit on this route, you must use a RUM index instead of a GIN index for the FTS
+1. for full credit on this route:
+    1. you must use a RUM index instead of a GIN index for the FTS
+    1. you must order the results by most relevancy
+    1. you must highlight search terms that match the query
+
+        > **HINT:**
+        > Find the following slide in [this PGConf presentation](https://www.slideshare.net/jamesphanson/full-textsearchw-rankedresultsv10).
+        > 
+        > <img src=rank.jpg width=300px />
+        >
+        > You can find a video version of this presentation [on youtube](https://www.youtube.com/watch?v=ynlCCqKM4cY).
+
+    1. **2 points extra credit**
+        1. provide spelling suggestions for misspelled words using the `pg_trgm` extension
+        1. the presentation above covers techniques for doing this
 
 **Other Notes:**
 1. Good front end styling is not required, but it might make the development experience "more fun", so it might be worth spending 20 minutes to do
