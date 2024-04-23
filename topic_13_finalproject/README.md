@@ -134,6 +134,7 @@ There are 8 required tasks, each worth 4 points.
 1. the user should be given an input field to enter a search query
 1. after the search query has been entered, a FTS should be performed over the messages, and the results returned in a format similar to the home (`/`) route
 1. if many messages match search pattern, then the resulting messages must have next/previous buttons to traverse the pages
+1. for full credit on this route, you must use a RUM index instead of a GIN index for the FTS
 
 ## Grading
 
